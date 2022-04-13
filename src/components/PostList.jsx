@@ -8,10 +8,10 @@ const PostList = ({posts, title}) => {
             <h1 style={{textAlign: 'center'}}>
                 {title}
             </h1>
-            {posts.map(post =>
+            {posts.map((post, index) =>
                 //при создании React компонентов из списка, для каждого нужно указывать параметр key
                 //key должен хранить уникальное значение
-                <PostItem post={post} key={post.id}/>
+                <PostItem number={index + 1} post={post} key={post.id}/>
             )}
         </div>
     );
