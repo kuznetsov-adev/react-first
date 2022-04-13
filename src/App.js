@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import './styles/App.css'
 import PostList from "./components/PostList";
 import CustomButton from "./components/UI/button/CustomButton";
@@ -12,10 +12,12 @@ function App() {
     ])
 
     const [title, setTitle] = useState('')
+    const bodyInputRef = useRef() // доступ к DOM элементу
 
     function addNewPost(e) {
         e.preventDefault() // предотвращаем submit кнопки (отправка на сервер и обновление всей страницы)
         console.log(title)
+        console.log(bodyInputRef.current.value)
     }
 
     return (
@@ -28,7 +30,9 @@ function App() {
                     type="text"
                     placeholder="Post name"
                 />
+                {/*Неуправляемый компонент*/}
                 <CustomInput
+                    ref={bodyInputRef}
                     type="text"
                     placeholder="Post description"
                 />
