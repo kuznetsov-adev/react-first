@@ -10,12 +10,29 @@ function App() {
         {id: 2, title: 'Javascript 2', description: 'Javascript - programming language'},
         {id: 3, title: 'Javascript 3', description: 'Javascript - programming language'}
     ])
+
+    const [title, setTitle] = useState('')
+
+    function addNewPost(e) {
+        e.preventDefault() // предотвращаем submit кнопки (отправка на сервер и обновление всей страницы)
+        console.log(title)
+    }
+
     return (
         <div className="App">
             <form>
-                <CustomInput type="text" placeholder="Post name"/>
-                <CustomInput type="text" placeholder="Post description"/>
-                <CustomButton disabled>Create post</CustomButton>
+                {/*Управляемый компонент*/}
+                <CustomInput
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                    type="text"
+                    placeholder="Post name"
+                />
+                <CustomInput
+                    type="text"
+                    placeholder="Post description"
+                />
+                <CustomButton onClick={addNewPost}>Create post</CustomButton>
             </form>
             <PostList posts={posts} title={'Список Javascript постов'}/>
         </div>
