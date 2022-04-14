@@ -1,7 +1,7 @@
 import React from 'react';
 import PostItem from "./PostItem";
 
-const PostList = ({posts, title}) => {
+const PostList = ({posts, title, remove}) => {
     return (
         //в компоненте должен находиться только один корневой элемент
         <div>
@@ -11,7 +11,7 @@ const PostList = ({posts, title}) => {
             {posts.map((post, index) =>
                 //при создании React компонентов из списка, для каждого нужно указывать параметр key
                 //key должен хранить уникальное значение
-                <PostItem number={index + 1} post={post} key={post.id}/>
+                <PostItem remove={remove} number={index + 1} post={post} key={post.id}/>
             )}
         </div>
     );
