@@ -4,6 +4,7 @@ import CustomButton from "./UI/button/CustomButton";
 const PostItem = function (props) {
     return (
         <div className="post">
+            {console.log(props.post)}
             <div className="post__content">
                 <strong>{props.number}. {props.post.title}</strong>
                 <div>

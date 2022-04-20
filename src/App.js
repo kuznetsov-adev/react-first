@@ -2,6 +2,9 @@ import React, {useMemo, useState} from "react";
 import './styles/App.css'
 import PostForm from "./components/PostForm";
 import PostFilter from "./components/PostFilter";
+import CustomModal from "./components/UI/modal/CustomModal";
+import CustomButton from "./components/UI/button/CustomButton";
+import PostList from "./components/PostList";
 
 function App() {
     const [posts, setPosts] = useState([
@@ -10,8 +13,7 @@ function App() {
         {id: 3, title: 'Java', description: 'backend - programming language'}
     ])
     const [filter, setFilter] = useState({sort: '', query: ''})
-    // const [selectedSort, setSelectedSort] = useState('')
-    // const [searchQuery, setSearchQuery] = useState('')
+    const [modal, setModal] = useState(false)
 
     const sortedPosts = useMemo(() => {
         if (filter.sort) {
@@ -26,6 +28,7 @@ function App() {
 
     function createPost(newPost) {
         setPosts([...posts, newPost])
+        setModal(false)
     }
 
     function removePost(post) {
@@ -34,9 +37,15 @@ function App() {
 
     return (
         <div className="App">
-            <PostForm create={createPost}/>
+            <CustomButton style={{marginTop: '30px'}} onClick={() => setModal(true)}>
+                Create post
+            </CustomButton>
+            <CustomModal visible={modal} setVisible={setModal}>
+                <PostForm create={createPost}/>
+            </CustomModal>
             <hr style={{margin: '15px 0'}}/>
             <PostFilter filter={filter} setFilter={setFilter}/>
+            <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Posts about programming language"/>
         </div>
     );
 }

@@ -3,7 +3,7 @@ import CustomInput from "./UI/input/CustomInput";
 import CustomButton from "./UI/button/CustomButton";
 
 const PostForm = ({create}) => {
-    const [post, setPost] = useState({title: '', body: ''})
+    const [post, setPost] = useState({title: '', description: ''})
 
     function addNewPost(e) {
         e.preventDefault() // предотвращаем submit кнопки (отправка на сервер и обновление всей страницы)
@@ -11,7 +11,7 @@ const PostForm = ({create}) => {
             ...post, id: Date.now()
         }
         create(newPost)
-        setPost({title: '', body: ''})
+        setPost({title: '', description: ''})
     }
 
     return (
@@ -26,8 +26,8 @@ const PostForm = ({create}) => {
                 />
                 {/*Неуправляемый компонент*/}
                 <CustomInput
-                    value={post.body}
-                    onChange={e => setPost({...post, body: e.target.value})}
+                    value={post.description}
+                    onChange={e => setPost({...post, description: e.target.value})}
                     type="text"
                     placeholder="Post description"
                 />
