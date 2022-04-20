@@ -12,15 +12,15 @@ function App() {
     ])
     const [selectedSort, setSelectedSort] = useState('')
 
-    const createPost = (newPost) => {
+    function createPost(newPost) {
         setPosts([...posts, newPost])
     }
 
-    const removePost = (post) => {
+    function removePost(post) {
         setPosts(posts.filter(p => p.id !== post.id))
     }
 
-    const sortPosts = (sort) => {
+    function sortPosts(sort) {
         setSelectedSort(sort)
         setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])))
     }
@@ -41,11 +41,8 @@ function App() {
                 />
             </div>
 
-            {posts.length
-                ? <PostList remove={removePost} posts={posts} title={'Список Javascript постов'}/>
-                : <h1 style={{textAlign: 'center'}}>
-                    Posts not found
-                </h1>
+            {posts.length ? <PostList remove={removePost} posts={posts} title={'Список Javascript постов'}/>
+                : <h1 style={{textAlign: 'center'}}> Posts not found </h1>
             }
 
         </div>
