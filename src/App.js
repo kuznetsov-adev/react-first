@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import './styles/App.css'
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import CustomSelect from "./components/UI/select/CustomSelect";
+import CustomInput from "./components/UI/input/CustomInput";
 
 function App() {
     const [posts, setPosts] = useState([
@@ -11,6 +12,18 @@ function App() {
         {id: 3, title: 'C_Javascript 3', description: 'D_Javascript - programming language'}
     ])
     const [selectedSort, setSelectedSort] = useState('')
+    const [searchQuery, setSearchQuery] = useState('')
+
+    const sortedPosts = useMemo(() => {
+        if (selectedSort) {
+            return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
+        }
+        return posts
+    }, [selectedSort, posts])
+
+    const sortedAndSearchedPosts = useMemo(() => {
+        return sortedPosts.filter(post => post.title.toLowerCase().includes(searchQuery))
+    }, [searchQuery, sortedPosts])
 
     function createPost(newPost) {
         setPosts([...posts, newPost])
@@ -22,11 +35,15 @@ function App() {
 
     function sortPosts(sort) {
         setSelectedSort(sort)
-        setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])))
     }
 
     return (
         <div className="App">
+            <CustomInput
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                placeholder="Search..."
+            />
             <PostForm create={createPost}/>
             <hr style={{margin: '15px 0'}}/>
             <div>
@@ -41,8 +58,11 @@ function App() {
                 />
             </div>
 
-            {posts.length ? <PostList remove={removePost} posts={posts} title={'Список Javascript постов'}/>
-                : <h1 style={{textAlign: 'center'}}> Posts not found </h1>
+            {sortedAndSearchedPosts.length
+                ?
+                <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'Список Javascript постов'}/>
+                :
+                <h1 style={{textAlign: 'center'}}> Posts not found </h1>
             }
 
         </div>
