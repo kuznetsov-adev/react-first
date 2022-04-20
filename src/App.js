@@ -1,6 +1,5 @@
 import React, {useMemo, useState} from "react";
 import './styles/App.css'
-import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import PostFilter from "./components/PostFilter";
 
@@ -38,14 +37,6 @@ function App() {
             <PostForm create={createPost}/>
             <hr style={{margin: '15px 0'}}/>
             <PostFilter filter={filter} setFilter={setFilter}/>
-
-            {sortedAndSearchedPosts.length
-                ?
-                <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'Список Javascript постов'}/>
-                :
-                <h1 style={{textAlign: 'center'}}> Posts not found </h1>
-            }
-
         </div>
     );
 }
